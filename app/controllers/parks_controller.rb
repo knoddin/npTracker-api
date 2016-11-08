@@ -3,17 +3,27 @@ class ParksController < ProtectedController
 
   # GET /parks
   # GET /parks.json
-  def index
-    @parks = Park.all
-
-    render json: @parks
-  end
+  # def index
+  #   @parks = Park.all
+  #
+  #   render json: @parks
+  # end
 
   # GET /parks/1
   # GET /parks/1.json
   def show
     render json: @park
   end
+
+def index
+  @parks = Park.all
+  # if params[:all] == 'true'
+  #   @parks = Park.all
+  # else
+  #   @parks = current_user.parks
+  # end
+  render json: @parks
+end
 
   def my_parks
     @parks = Park.where("user_id=#{current_user.id}").reverse
