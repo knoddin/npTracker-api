@@ -4,4 +4,9 @@ class UserSerializer < ActiveModel::Serializer
   def park
     object.park.id
   end
+
+  # def my_parks
+  #   object.park.id
+  # end
+
 end

@@ -5,8 +5,8 @@ class ParkSerializer < ActiveModel::Serializer
   def user
     object.user.id
   end
-  
-  def editable
-    scope=object.user
-  end
+
+  # def editable
+  #   scope=object.user
+  # end
 end
