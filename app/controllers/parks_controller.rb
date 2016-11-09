@@ -64,7 +64,7 @@ end
   private
 
     def set_park
-      @park = current_user.parks.find(params[:id])
+      @park = Park.find(params[:id])
     end
 
     def park_params
