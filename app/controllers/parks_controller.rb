@@ -1,13 +1,13 @@
-class ParksController < ProtectedController
+class ParksController < ApplicationController
   before_action :set_park, only: [:show, :update, :destroy]
 
   # GET /parks
   # GET /parks.json
-  # def index
-  #   @parks = Park.all
-  #
-  #   render json: @parks
-  # end
+  def index
+    @parks = Park.all
+
+    render json: @parks
+  end
 
   # GET /parks/1
   # GET /parks/1.json
@@ -15,25 +15,10 @@ class ParksController < ProtectedController
     render json: @park
   end
 
-def index
-  @parks = Park.all
-  # if params[:all] == 'true'
-  #   @parks = Park.all
-  # else
-  #   @parks = current_user.parks
-  # end
-  render json: @parks
-end
-
-  def my_parks
-    @parks = Park.where("user_id=#{current_user.id}").reverse
-    render json: @parks
-  end
-
   # POST /parks
   # POST /parks.json
   def create
-    @park = current_user.parks.build(park_params)
+    @park = Park.new(park_params)
 
     if @park.save
       render json: @park, status: :created, location: @park
@@ -45,6 +30,7 @@ end
   # PATCH/PUT /parks/1
   # PATCH/PUT /parks/1.json
   def update
+    @park = Park.find(params[:id])
 
     if @park.update(park_params)
       head :no_content
@@ -68,6 +54,6 @@ end
     end
 
     def park_params
-      params.require(:park).permit(:name, :location, :description, :user_id)
+      params.require(:park).permit(:name, :state, :url, :latitude, :longitude)
     end
 end
