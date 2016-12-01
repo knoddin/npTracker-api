@@ -1,4 +1,4 @@
-class ReviewsController < ApplicationController
+class ReviewsController < ProtectedController
   before_action :set_review, only: [:show, :update, :destroy]
 
   # GET /reviews
@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(review_params)
+    @review = current_user.reviews.build(review_params)
 
     if @review.save
       render json: @review, status: :created, location: @review
@@ -27,10 +27,14 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def my_reviews
+    @reviews = Review.where("user_id=#{current_user.id}").reverse
+    render json: @reviews
+  end
+
   # PATCH/PUT /reviews/1
   # PATCH/PUT /reviews/1.json
   def update
-    @review = Review.find(params[:id])
 
     if @review.update(review_params)
       head :no_content
@@ -54,6 +58,6 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(:review).permit(:description, :rating, :park_id)
+      params.require(:review).permit(:description, :rating, :park_id, :user_id)
     end
 end

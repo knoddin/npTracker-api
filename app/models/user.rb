@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
   include Authentication
   has_many :examples
-  has_many :parks
+  has_many :reviews
 end

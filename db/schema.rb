@@ -39,11 +39,13 @@ ActiveRecord::Schema.define(version: 20161120043540) do
     t.text     "description"
     t.integer  "rating"
     t.integer  "park_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "reviews", ["park_id"], name: "index_reviews_on_park_id", using: :btree
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
@@ -59,4 +61,5 @@ ActiveRecord::Schema.define(version: 20161120043540) do
 
   add_foreign_key "examples", "users"
   add_foreign_key "reviews", "parks"
+  add_foreign_key "reviews", "users"
 end

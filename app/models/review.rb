@@ -1,3 +1,4 @@
 class Review < ActiveRecord::Base
-  belongs_to :park
+  has_one :park
+  belongs_to :user
 end

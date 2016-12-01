@@ -1,6 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email
-  # has_many :parks
 
   def park
     object.park.id
