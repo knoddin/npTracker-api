@@ -1,4 +1,4 @@
 class Review < ActiveRecord::Base
-  has_one :park
-  belongs_to :user
+  belongs_to :park, inverse_of: :reviews
+  belongs_to :user, inverse_of: :reviews
 end
